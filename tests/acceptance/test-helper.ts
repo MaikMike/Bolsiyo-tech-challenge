@@ -1,4 +1,4 @@
-import { BolsiyoTechChallengeApplication } from '../..';
+import { BolsiyoTechChallengeApplication } from '../../src';
 import {
   createRestAppClient,
   givenHttpServerConfig,
