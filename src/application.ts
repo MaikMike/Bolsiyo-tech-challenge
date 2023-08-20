@@ -7,6 +7,7 @@ import {
   RestExplorerComponent,
 } from '@loopback/rest-explorer';
 import { ServiceMixin } from '@loopback/service-proxy';
+import { MysqlDataSource } from './shared/datasources';
 import { Logger } from './shared/logger/logger';
 import { CustomSequence } from './shared/middlewares/sequence';
 
@@ -33,5 +34,7 @@ export class BolsiyoTechChallengeApplication extends BootMixin(
         nested: true,
       },
     };
+
+    this.dataSource(MysqlDataSource);
   }
 }
