@@ -7,6 +7,8 @@ import {
   RestExplorerComponent,
 } from '@loopback/rest-explorer';
 import { ServiceMixin } from '@loopback/service-proxy';
+import { Logger } from './shared/logger/logger';
+import { CustomSequence } from './shared/middlewares/sequence';
 
 export { ApplicationConfig };
 
@@ -16,9 +18,11 @@ export class BolsiyoTechChallengeApplication extends BootMixin(
   constructor(options: ApplicationConfig = {}) {
     super(options);
 
+    this.bind('logger').toClass(Logger);
     this.configure(RestExplorerBindings.COMPONENT).to({
       path: '/explorer',
     });
+    this.sequence(CustomSequence);
     this.component(RestExplorerComponent);
 
     this.projectRoot = __dirname;
