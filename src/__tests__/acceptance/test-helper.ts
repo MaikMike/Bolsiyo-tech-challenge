@@ -1,9 +1,9 @@
-import { BolsiyoTechChallengeApplication } from '../../src';
 import {
   createRestAppClient,
   givenHttpServerConfig,
   Client,
 } from '@loopback/testlab';
+import { BolsiyoTechChallengeApplication } from '../..';
 
 export async function setupApplication(): Promise<AppWithClient> {
   const restConfig = givenHttpServerConfig({
