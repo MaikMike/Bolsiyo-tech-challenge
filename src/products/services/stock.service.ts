@@ -3,12 +3,15 @@ import { Logger } from '../../shared/logger/logger';
 import { Stock } from '../dtos/stock.dto';
 import { ProductNotFound } from '../errors/product-not-found.error';
 import { Product } from '../models/product.model';
+import { StockHistory } from '../models/stock-history.model';
 import { ProductRepository } from '../repositories/product.repository';
+import { StockHistoryRepository } from '../repositories/stock-history.repository';
 
 export class StockService {
   constructor(
     @service() private logger: Logger,
     @service() private productRepository: ProductRepository,
+    @service() private stockHistoryRepository: StockHistoryRepository,
   ) {}
 
   async increase(
@@ -35,7 +38,19 @@ export class StockService {
       updatedAt: new Date(),
     });
 
-    await this.productRepository.update(updateProduct);
+    const stockHistory = new StockHistory({
+      productId,
+      transactionType: 'increase',
+      quantity: newStock,
+    });
+
+    // this should be a transaction or event should be emitted when stock is updated, 
+    // then stock history should be created
+    await Promise.all([
+      this.productRepository.update(updateProduct),
+      this.stockHistoryRepository.create(stockHistory),
+    ]);
+
     return updateProduct;
   }
 }
