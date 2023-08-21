@@ -27,7 +27,7 @@ export class ProductService {
     companyId: string,
     product: ProductDto,
   ): Promise<Product> {
-    this.logger.info({ message: `Updating product`, companyId, product });
+    this.logger.info({ message: `Updating product ${productId}`, companyId, product });
 
     const productExists = await this.productRepository.findById(productId);
     if (!productExists) {
@@ -43,5 +43,22 @@ export class ProductService {
     await this.productRepository.update(productUpdated);
 
     return productUpdated;
+  }
+
+  async delete(productId: number, companyId: string): Promise<void> {
+    this.logger.info({ message: `Deleting product ${productId}`, companyId});
+
+    const productExists = await this.productRepository.findById(productId);
+    if (!productExists) {
+      throw new Error('Product not found');
+    }
+    
+    const productDeleted = new Product({
+      ...productExists,
+      isDeleted: true,
+      deletedAt: new Date(),
+    });
+
+    await this.productRepository.update(productDeleted);
   }
 }

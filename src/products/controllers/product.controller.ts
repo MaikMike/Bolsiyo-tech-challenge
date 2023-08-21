@@ -6,6 +6,7 @@ import {
   param,
   post,
   put,
+  del,
   requestBody,
 } from '@loopback/rest';
 import { ProductDto } from '../dtos/product.dto';
@@ -68,5 +69,11 @@ export class ProductController {
     return {
       data: product,
     };
+  }
+
+  @del('/products/{id}')
+  async delete(@param.path.number('id') productId: number): Promise<void> {
+    const companyId: string = await this.context.get('companyId');
+    await this.productServices.delete(productId, companyId);
   }
 }
