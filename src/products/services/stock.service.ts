@@ -45,7 +45,7 @@ export class StockService {
       quantity: newStock,
     });
 
-    // this should be a transaction or event should be emitted when stock is updated, 
+    // this should be a transaction or event should be emitted when stock is updated,
     // then stock history should be created
     await Promise.all([
       this.productRepository.update(updateProduct),

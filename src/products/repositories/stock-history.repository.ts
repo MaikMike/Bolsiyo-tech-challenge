@@ -1,9 +1,12 @@
-import {inject} from '@loopback/core';
-import {DefaultCrudRepository} from '@loopback/repository';
-import {MysqlDataSource} from '../../datasources';
+import { inject } from '@loopback/core';
+import { DefaultCrudRepository } from '@loopback/repository';
+import { MysqlDataSource } from '../../datasources';
 import { Criteria } from '../../shared/utils/criteria';
 import { StockReport } from '../dtos/stock-report.dto';
-import {StockHistory, StockHistoryRelations} from '../models/stock-history.model';
+import {
+  StockHistory,
+  StockHistoryRelations,
+} from '../models/stock-history.model';
 
 export class StockHistoryRepository extends DefaultCrudRepository<
   StockHistory,
@@ -14,10 +17,13 @@ export class StockHistoryRepository extends DefaultCrudRepository<
     super(StockHistory, dataSource);
   }
 
-  async getProductsInDateRangeReport(companyId: string, criteria: Criteria): Promise<StockReport[]> {
-      const { fromDate, toDate } = criteria;
+  async getProductsInDateRangeReport(
+    companyId: string,
+    criteria: Criteria,
+  ): Promise<StockReport[]> {
+    const { fromDate, toDate } = criteria;
 
-      const query = `SELECT
+    const query = `SELECT
         c.id as categoryId,
         c.name as categoryName,
         p.id as productId,
@@ -35,9 +41,8 @@ export class StockHistoryRepository extends DefaultCrudRepository<
       GROUP BY
         sh.product_id`;
 
-      const params = [companyId, fromDate, toDate];
+    const params = [companyId, fromDate, toDate];
 
-      return await this.dataSource.execute(query, params);
+    return this.dataSource.execute(query, params);
   }
-
 }
