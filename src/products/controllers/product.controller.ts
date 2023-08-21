@@ -1,5 +1,7 @@
 import { inject, service } from '@loopback/core';
-import { RestBindings, RequestContext, get, param } from '@loopback/rest';
+import { RestBindings, RequestContext, get, param, post, requestBody } from '@loopback/rest';
+import { ProductDto } from '../dtos/product.dto';
+import { Product } from '../models/product.model';
 
 import { ProductService } from '../services/product.service';
 
@@ -15,7 +17,7 @@ export class ProductController {
     @param.query.number('offset') offset: number = 0,
     @param.query.string('filter') filter: string = '',
   ): Promise<{
-    data: any;
+    data: Product[];
   }> {
     const companyId: string = await this.context.get('companyId');
     const products = await this.productServices.getAll(companyId, {
@@ -28,4 +30,17 @@ export class ProductController {
       data: products,
     };
   }
+
+  @post('/products')
+  async create(@requestBody() productDto: ProductDto): Promise<{
+    data: Product;
+  }> {
+    const companyId: string = await this.context.get('companyId');
+    const product = await this.productServices.create(companyId, productDto);
+
+    return {
+      data: product,
+    }
+  }
+
 }

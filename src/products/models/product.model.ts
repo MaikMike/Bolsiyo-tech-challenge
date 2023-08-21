@@ -1,6 +1,6 @@
 import { model, property, Entity } from '@loopback/repository';
 
-@model({ name: 'categories' })
+@model({ name: 'products' })
 export class Product extends Entity {
   @property({
     type: 'number',
@@ -19,15 +19,15 @@ export class Product extends Entity {
   })
   name: string;
 
-  //@property({
-  //  type: 'number',
-  //  required: true,
-  //  jsonSchema: {
-  //    minimum: 0,
-  //  },
-  //  name: 'purchase_price',
-  //})
-  //purchasePrice: number;
+  @property({
+    type: 'number',
+    required: true,
+    jsonSchema: {
+      minimum: 0,
+    },
+    name: 'purchase_price',
+  })
+  purchasePrice: number;
 
   @property({
     type: 'number',
@@ -41,7 +41,7 @@ export class Product extends Entity {
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
     jsonSchema: {
       minimum: 0,
     },
@@ -65,7 +65,7 @@ export class Product extends Entity {
 
   @property({
     type: 'Date',
-    default: 'now',
+    default: new Date(),
     name: 'created_at',
   })
   createdAt: Date;

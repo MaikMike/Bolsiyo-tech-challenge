@@ -16,7 +16,7 @@ export class ProductRepository extends DefaultCrudRepository<
   async findAll(companyId: string, criteria: Criteria): Promise<Product[]> {
     const { limit, offset, filter } = criteria;
     return this.find(
-      { where: { companyId, name: { like: `%${filter}%` } } },
+      { where: { companyId, name: { like: `%${filter}%` }, isDeleted: false } },
       { limit, offset },
     );
   }
