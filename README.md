@@ -11,7 +11,7 @@ El siguiente comando levantara una base de datos, ejecutara las migraciones y ej
 docker-compose up
 ```
 
-aqui hay un token para probar los endpoints, todos menos el /auth/login/ y /ping necesitan un header de Authorization: Bearer `<token>`
+aqui hay un token para probar los endpoints, todos menos el /auth/login/ y /ping necesitan un header de Authorization: Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJvbHNpeW8uY29tIiwiY29tcGFueUlkIjoiMGFjNGEyYjUtNzhiNS00Y2YwLWI3YTItODE0NDg4NWYwMWY0IiwiaWF0IjoxNjkyNjUzOTQ0LCJleHAiOjE2OTUyNDU5NDR9.aijQV3zlEPlbxl8RauU3IeoE2SKct-ZmzWgoUTvQ70A
 
 ## Install dependencies
 
