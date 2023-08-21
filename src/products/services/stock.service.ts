@@ -40,6 +40,7 @@ export class StockService {
 
     const stockHistory = new StockHistory({
       productId,
+      companyId,
       transactionType: 'increase',
       quantity: newStock,
     });

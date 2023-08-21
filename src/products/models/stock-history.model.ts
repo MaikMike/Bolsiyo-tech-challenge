@@ -19,6 +19,13 @@ export class StockHistory extends Entity {
   @property({
     type: 'string',
     required: true,
+    name: 'company_id',
+  })
+  companyId: string;
+
+  @property({
+    type: 'string',
+    required: true,
     name: 'transaction_type',
   })
   transactionType: string;

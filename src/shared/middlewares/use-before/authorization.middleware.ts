@@ -16,6 +16,9 @@ export const authorizationMiddleware = async (
     authorize(context);
   }
 
+  if (context.request.url.startsWith('/stock-reports')) {
+    authorize(context);
+  }
   return;
 };
 
