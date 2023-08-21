@@ -6,7 +6,7 @@ import { juggler } from '@loopback/repository';
 dotenv.config();
 
 const config = {
-  name: 'mysql',
+  name: 'database',
   connector: 'mysql',
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
@@ -20,11 +20,11 @@ export class MysqlDataSource
   extends juggler.DataSource
   implements LifeCycleObserver
 {
-  static dataSourceName = 'mysql';
+  static dataSourceName = 'database';
   static readonly defaultConfig = config;
 
   constructor(
-    @inject('datasources.config.mysql', { optional: true })
+    @inject('datasources.config.database', { optional: true })
     dsConfig: object = config,
   ) {
     super(dsConfig);
