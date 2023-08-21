@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "bd822b44-a39c-4555-804e-b4ae2ed42367",
+		"_postman_id": "790c1db9-ec60-4d4c-a594-cb746cbd8f82",
 		"name": "Bolsiyo",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "7901232"
@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"category10\"\n}",
+							"raw": "{\n    \"name\": \"Category1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -24,15 +24,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5001/categories",
+							"raw": "http://localhost:8080/categories",
 							"protocol": "http",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"localhost"
 							],
-							"port": "5001",
+							"port": "8080",
 							"path": [
 								"categories"
 							]
@@ -66,15 +63,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5001/categories?offset=1",
+							"raw": "http://localhost:8080/categories?offset=1&limit=5",
 							"protocol": "http",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"localhost"
 							],
-							"port": "5001",
+							"port": "8080",
 							"path": [
 								"categories"
 							],
@@ -82,6 +76,10 @@
 								{
 									"key": "offset",
 									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
 								}
 							]
 						}
@@ -89,16 +87,6 @@
 					"response": []
 				}
 			],
-			"auth": {
-				"type": "bearer",
-				"bearer": [
-					{
-						"key": "token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQG5vdGJvbHNpeW8uY29tIiwiY29tcGFueUlkIjoiMzc2MjEwNTAtZDdkNy00NWRjLWE1YzItYzU1NWQyYTA2MTk1IiwiaWF0IjoxNjkyNjM5ODEwLCJleHAiOjE2OTI2NTQyMTB9._i4ohCf6aebHuLenmPUKYKd7pm0luQkR2wJ3EMMfKJA",
-						"type": "string"
-					}
-				]
-			},
 			"event": [
 				{
 					"listen": "prerequest",
@@ -158,10 +146,44 @@
 			"name": "Products",
 			"item": [
 				{
-					"name": "Get all",
+					"name": "Get all products",
 					"request": {
 						"method": "GET",
 						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products?filter=product",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "product"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Product10-000\",\n    \"purchasePrice\": 100,\n    \"salePrice\": 130,\n    \"categoryId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8080/products",
 							"protocol": "http",
@@ -177,44 +199,13 @@
 					"response": []
 				},
 				{
-					"name": "Create Product",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Product7\",\n    \"purchasePrice\": 100,\n    \"salePrice\": 130,\n    \"categoryId\": 4\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://127.0.0.1:5001/products",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "5001",
-							"path": [
-								"products"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Update Product",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Product3\",\n    \"purchasePrice\": -100,\n    \"salePrice\": 130,\n    \"categoryId\": 4\n}",
+							"raw": "{\n    \"name\": \"Product1\",\n    \"purchasePrice\": 100,\n    \"salePrice\": 130,\n    \"categoryId\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -316,16 +307,6 @@
 					"response": []
 				}
 			],
-			"auth": {
-				"type": "bearer",
-				"bearer": [
-					{
-						"key": "token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJvbHNpeW8uY29tIiwiY29tcGFueUlkIjoiMGFjNGEyYjUtNzhiNS00Y2YwLWI3YTItODE0NDg4NWYwMWY0IiwiaWF0IjoxNjkyNjQ5NTg3LCJleHAiOjE2OTUyNDE1ODd9.cmN7FovC3r1tCNjNByYfutDWnxGViNGQEaUwpf-_gyc",
-						"type": "string"
-					}
-				]
-			},
 			"event": [
 				{
 					"listen": "prerequest",
@@ -346,6 +327,81 @@
 					}
 				}
 			]
+		},
+		{
+			"name": "Ping",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ping",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Swagger docs",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/explorer/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"explorer",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGJvbHNpeW8uY29tIiwiY29tcGFueUlkIjoiMGFjNGEyYjUtNzhiNS00Y2YwLWI3YTItODE0NDg4NWYwMWY0IiwiaWF0IjoxNjkyNjUzOTQ0LCJleHAiOjE2OTUyNDU5NDR9.aijQV3zlEPlbxl8RauU3IeoE2SKct-ZmzWgoUTvQ70A",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

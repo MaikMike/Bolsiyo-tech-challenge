@@ -3,6 +3,16 @@
 This application is generated using [LoopBack 4 CLI](https://loopback.io/doc/en/lb4/Command-line-interface.html) with the
 [initial project layout](https://loopback.io/doc/en/lb4/Loopback-application-layout.html).
 
+## Levantar el proyecto
+
+El siguiente comando levantara una base de datos, ejecutara las migraciones y ejecutara el dockerfile del proyecto, el cual sera expuesto en el puerto 8080. El servicio tardara un poco en estabilizarse ya que necesita que la base de datos este arriba y con las migraciones listas.
+
+```
+docker-compose up
+```
+
+aqui hay un token para probar los endpoints, todos menos el /auth/login/ y /ping necesitan un header de Authorization: Bearer `<token>`
+
 ## Install dependencies
 
 By default, dependencies were installed when this application was generated.
