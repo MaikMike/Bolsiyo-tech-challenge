@@ -7,4 +7,9 @@ export class JwtService {
 
     return jwt.sign(payload, secret, { expiresIn });
   }
+
+  static async verify(token: string) {
+    const secret = process.env.JWT_SECRET as string;
+    return jwt.verify(token, secret);
+  }
 }
