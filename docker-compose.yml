@@ -1,0 +1,45 @@
+version: "3.7"
+
+networks:
+  backend:
+    driver: bridge
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: bolsiyo
+      MYSQL_USER: mike
+      MYSQL_PASSWORD: mike
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./migrations:/docker-entrypoint-initdb.d
+    networks:
+      - backend
+  
+  tech-challenge-service:
+    image: tech-challenge-service
+    environment:
+      - HOST=localhost
+      - PORT=3001
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=mike
+      - DB_PASSWORD=mike
+      - DB_DATABASE=bolsiyo
+      - JWT_SECRET=secret
+      - JWT_EXPIRES_IN=4h
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      mysql:
+        condition: service_started
+    ports:
+      - "3001:3001"
+    networks:
+      - backend

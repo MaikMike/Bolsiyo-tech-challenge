@@ -21,8 +21,15 @@ COPY --chown=node . .
 
 RUN yarn build
 
-# Bind to all network interfaces so that it can be mapped to the host OS
-ENV HOST=127.0.0.1 PORT=3001
+ENV HOST=localhost
+ENV PORT=3001
+ENV DB_HOST=mysql
+ENV DB_PORT=3306
+ENV DB_USER=mike
+ENV DB_PASSWORD=mike
+ENV DB_DATABASE=bolsiyo
+ENV JWT_SECRET=secret
+ENV JWT_EXPIRES_IN=4h
 
-EXPOSE ${PORT}
+EXPOSE 3001
 CMD [ "node", "." ]
