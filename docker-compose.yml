@@ -24,7 +24,7 @@ services:
     image: tech-challenge-service
     environment:
       - HOST=localhost
-      - PORT=3001
+      - PORT=8080
       - DB_HOST=mysql
       - DB_PORT=3306
       - DB_USER=mike
@@ -40,6 +40,6 @@ services:
       mysql:
         condition: service_started
     ports:
-      - "3001:3001"
+      - 8080:8080
     networks:
       - backend
