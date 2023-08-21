@@ -4,6 +4,8 @@ import {
   RestBindings,
   response,
   post,
+  del,
+  param,
   requestBody,
   RequestContext,
 } from '@loopback/rest';
@@ -22,7 +24,7 @@ export class CategoryController {
   @post('/categories')
   @response(201, CREATE_CATEGORY_RESPONSE)
   async create(
-    @requestBody(CREATE_CATEGORY_REQUEST_BODY) category: CategoryDto,
+    @requestBody() category: CategoryDto,
   ): Promise<{}> {
     const companyId: string = await this.context.get('companyId');
     const categoryCreated = await this.categoriesServices.create(category, companyId);
@@ -31,4 +33,14 @@ export class CategoryController {
       data: categoryCreated,
     };
   }
+
+  @del('/categories/{id}')
+  @response(200, {
+    description: 'Category DELETE success',
+  })
+  async deleteById(@param.path.number('id') id: number): Promise<void> {
+    const companyId: string = await this.context.get('companyId');
+    await this.categoriesServices.deleteById(id, companyId);
+  }
+
 }

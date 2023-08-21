@@ -12,4 +12,8 @@ export class CategoryRepository extends DefaultCrudRepository <
   constructor(@inject('datasource') dataSource: MysqlDataSource) {
     super(Category, dataSource);
   }
+
+  async deleteByIdAndCompany(id: number, companyId: string): Promise<void> {
+    await this.deleteAll({ id, companyId });
+  }
 }

@@ -15,4 +15,9 @@ export class CategoryService {
       this.logger.info({message: `Creating category with name ${name}`});
       return this.categoryRepository.create({ name, companyId });
     }
+
+    async deleteById(id: number, companyId: string): Promise<void> {
+      this.logger.info({message: `Deleting category with id ${id}`});
+      await this.categoryRepository.deleteByIdAndCompany(id, companyId);
+    }
 }

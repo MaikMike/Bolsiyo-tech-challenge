@@ -1,18 +1,20 @@
+import { request } from 'http';
 import { JwtPayload } from 'jsonwebtoken';
 
 import { RequestContext } from '@loopback/rest';
 import { HttpErrors } from '@loopback/rest';
 import { JwtService } from '../../../auth/services/jwt.service';
 
-const routsWithAuthorization = [
-  '/categories',
-];
-
 export const authorizationMiddleware = async (context: RequestContext): Promise<void> => {
-  if (!routsWithAuthorization.includes(context.request.url)) {
-    return;
-  }
 
+  if (context.request.url.startsWith('/categories')) {
+    authorize(context);
+  }
+  
+  return;
+}
+
+const authorize = async (context: RequestContext): Promise<void> => {
   const token = context.request.headers.authorization?.split(' ')[1];
 
   if (!token) {
