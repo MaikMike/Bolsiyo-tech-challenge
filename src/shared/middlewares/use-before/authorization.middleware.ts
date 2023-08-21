@@ -5,6 +5,7 @@ import { RequestContext } from '@loopback/rest';
 import { HttpErrors } from '@loopback/rest';
 import { JwtService } from '../../../auth/services/jwt.service';
 
+// TODO: fix this middleware, when throw error kill the process
 export const authorizationMiddleware = async (
   context: RequestContext,
 ): Promise<void> => {
