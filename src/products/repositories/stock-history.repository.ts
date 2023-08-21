@@ -28,7 +28,7 @@ export class StockHistoryRepository extends DefaultCrudRepository<
         c.name as categoryName,
         p.id as productId,
         p.name as productName,
-        SUM(quantity) as stock
+        CAST(SUM(quantity) AS SIGNED) as stock
       FROM
         stock_history sh
       INNER JOIN

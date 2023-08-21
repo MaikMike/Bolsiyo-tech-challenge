@@ -3,6 +3,8 @@ import { service } from '@loopback/core';
 import { get, param } from '@loopback/rest';
 import { RestBindings } from '@loopback/rest';
 import { RequestContext } from '@loopback/rest';
+import { response } from '@loopback/rest';
+import { STOCK_REPORT_RESPONSE } from './reports.openapi';
 import { StockReport } from '../dtos/stock-report.dto';
 
 import { StockReportService } from '../services/stock-report.service';
@@ -14,6 +16,7 @@ export class StockReports {
   ) {}
 
   @get('/stock-reports')
+  @response(200, STOCK_REPORT_RESPONSE)
   async getAll(
     @param.query.string('from-date') fromDate: string,
     @param.query.string('to-date') toDate: string,

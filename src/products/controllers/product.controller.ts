@@ -8,7 +8,14 @@ import {
   put,
   del,
   requestBody,
+  response,
+  RequestBodyObject,
 } from '@loopback/rest';
+import {
+  GET_ALL_PRODUCTS_RESPONSE,
+  PRODUCT_REQUEST_BODY,
+  PRODUCT_RESPONSE,
+} from './product.openapi';
 import { ProductDto } from '../dtos/product.dto';
 import { Product } from '../models/product.model';
 
@@ -21,6 +28,7 @@ export class ProductController {
   ) {}
 
   @get('/products')
+  @response(200, GET_ALL_PRODUCTS_RESPONSE)
   async getAll(
     @param.query.number('limit') limit: number = 10,
     @param.query.number('offset') offset: number = 0,
@@ -41,7 +49,11 @@ export class ProductController {
   }
 
   @post('/products')
-  async create(@requestBody() productDto: ProductDto): Promise<{
+  @response(201, PRODUCT_RESPONSE)
+  async create(
+    @requestBody(PRODUCT_REQUEST_BODY as RequestBodyObject)
+    productDto: ProductDto,
+  ): Promise<{
     data: Product;
   }> {
     const companyId: string = await this.context.get('companyId');
@@ -53,6 +65,7 @@ export class ProductController {
   }
 
   @put('/products/{id}')
+  @response(201, PRODUCT_RESPONSE)
   async update(
     @requestBody() productDto: ProductDto,
     @param.path.number('id') productId: number,

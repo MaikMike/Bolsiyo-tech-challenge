@@ -9,6 +9,7 @@ import {
   get,
   requestBody,
   RequestContext,
+  RequestBodyObject,
 } from '@loopback/rest';
 import {
   CREATE_CATEGORY_REQUEST_BODY,
@@ -48,7 +49,10 @@ export class CategoryController {
 
   @post('/categories')
   @response(201, CREATE_CATEGORY_RESPONSE)
-  async create(@requestBody() category: CategoryDto): Promise<{
+  async create(
+    @requestBody(CREATE_CATEGORY_REQUEST_BODY as RequestBodyObject)
+    category: CategoryDto,
+  ): Promise<{
     data: Category;
   }> {
     const companyId: string = await this.context.get('companyId');

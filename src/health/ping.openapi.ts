@@ -3,7 +3,7 @@ import { ResponseObject } from '@loopback/rest';
 export const PING_RESPONSE: ResponseObject = {
   description: 'Ping Response',
   content: {
-    'application/json': {
+    'application/text': {
       schema: {
         type: 'object',
         title: 'PingResponse',
