@@ -11,6 +11,7 @@ import { AuthService } from './auth/services/auth.service';
 import { CategoryService } from './categories/services/category.service';
 import { MysqlDataSource } from './datasources';
 import { ProductService } from './products/services/product.service';
+import { StockService } from './products/services/stock.service';
 import { Logger } from './shared/logger/logger';
 import { CustomSequence } from './shared/middlewares/sequence';
 
@@ -51,6 +52,7 @@ export class BolsiyoTechChallengeApplication extends BootMixin(
     this.bind('auth.service').toClass(AuthService);
     this.bind('categories.service').toClass(CategoryService);
     this.bind('products.service').toClass(ProductService);
+    this.bind('stock.service').toClass(StockService);
     this.bind('datasource').toClass(MysqlDataSource);
   }
 }

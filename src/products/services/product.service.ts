@@ -2,6 +2,7 @@ import { injectable, service } from '@loopback/core';
 import { Logger } from '../../shared/logger/logger';
 import { Criteria } from '../../shared/utils/criteria';
 import { ProductDto } from '../dtos/product.dto';
+import { ProductNotFound } from '../errors/product-not-found.error';
 import { Product } from '../models/product.model';
 import { ProductRepository } from '../repositories/product.repository';
 
@@ -27,11 +28,18 @@ export class ProductService {
     companyId: string,
     product: ProductDto,
   ): Promise<Product> {
-    this.logger.info({ message: `Updating product ${productId}`, companyId, product });
+    this.logger.info({
+      message: `Updating product ${productId}`,
+      companyId,
+      product,
+    });
 
-    const productExists = await this.productRepository.findById(productId);
+    const productExists = await this.productRepository.findByIdAndCompany(
+      productId,
+      companyId,
+    );
     if (!productExists) {
-      throw new Error('Product not found');
+      throw new ProductNotFound();
     }
 
     const productUpdated = new Product({
@@ -46,13 +54,16 @@ export class ProductService {
   }
 
   async delete(productId: number, companyId: string): Promise<void> {
-    this.logger.info({ message: `Deleting product ${productId}`, companyId});
+    this.logger.info({ message: `Deleting product ${productId}`, companyId });
 
-    const productExists = await this.productRepository.findById(productId);
+    const productExists = await this.productRepository.findByIdAndCompany(
+      productId,
+      companyId,
+    );
     if (!productExists) {
-      throw new Error('Product not found');
+      throw new ProductNotFound();
     }
-    
+
     const productDeleted = new Product({
       ...productExists,
       isDeleted: true,

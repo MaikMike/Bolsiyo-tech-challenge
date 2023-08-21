@@ -13,6 +13,13 @@ export class ProductRepository extends DefaultCrudRepository<
     super(Product, dataSource);
   }
 
+  async findByIdAndCompany(
+    id: number,
+    companyId: string,
+  ): Promise<Product | null> {
+    return this.findOne({ where: { id, companyId, isDeleted: false } });
+  }
+
   async findAll(companyId: string, criteria: Criteria): Promise<Product[]> {
     const { limit, offset, filter } = criteria;
     return this.find(
