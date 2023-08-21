@@ -21,4 +21,27 @@ export class ProductService {
     this.logger.info({ message: `Creating product`, companyId, product });
     return this.productRepository.create({ ...product, companyId });
   }
+
+  async update(
+    productId: number,
+    companyId: string,
+    product: ProductDto,
+  ): Promise<Product> {
+    this.logger.info({ message: `Updating product`, companyId, product });
+
+    const productExists = await this.productRepository.findById(productId);
+    if (!productExists) {
+      throw new Error('Product not found');
+    }
+
+    const productUpdated = new Product({
+      ...productExists,
+      ...product,
+      companyId,
+      updatedAt: new Date(),
+    });
+    await this.productRepository.update(productUpdated);
+
+    return productUpdated;
+  }
 }

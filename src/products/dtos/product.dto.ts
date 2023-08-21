@@ -1,4 +1,3 @@
-
 export class ProductDto {
   name: string;
   purchasePrice: number;

@@ -1,5 +1,13 @@
 import { inject, service } from '@loopback/core';
-import { RestBindings, RequestContext, get, param, post, requestBody } from '@loopback/rest';
+import {
+  RestBindings,
+  RequestContext,
+  get,
+  param,
+  post,
+  put,
+  requestBody,
+} from '@loopback/rest';
 import { ProductDto } from '../dtos/product.dto';
 import { Product } from '../models/product.model';
 
@@ -40,7 +48,25 @@ export class ProductController {
 
     return {
       data: product,
-    }
+    };
   }
 
+  @put('/products/{id}')
+  async update(
+    @requestBody() productDto: ProductDto,
+    @param.path.number('id') productId: number,
+  ): Promise<{
+    data: Product;
+  }> {
+    const companyId: string = await this.context.get('companyId');
+    const product = await this.productServices.update(
+      productId,
+      companyId,
+      productDto,
+    );
+
+    return {
+      data: product,
+    };
+  }
 }
