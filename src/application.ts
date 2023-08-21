@@ -10,6 +10,7 @@ import { ServiceMixin } from '@loopback/service-proxy';
 import { AuthService } from './auth/services/auth.service';
 import { CategoryService } from './categories/services/category.service';
 import { MysqlDataSource } from './datasources';
+import { ProductService } from './products/services/product.service';
 import { Logger } from './shared/logger/logger';
 import { CustomSequence } from './shared/middlewares/sequence';
 
@@ -30,12 +31,12 @@ export class BolsiyoTechChallengeApplication extends BootMixin(
     this.projectRoot = __dirname;
     this.bootOptions = {
       controllers: {
-        dirs: ['health', 'auth', 'categories'],
+        dirs: ['health', 'auth', 'categories', 'products'],
         extensions: ['.controller.js'],
         nested: true,
       },
       repositories: {
-        dirs: ['auth', 'categories'],
+        dirs: ['auth', 'categories', 'products'],
         extensions: ['.repository.js'],
         nested: true,
       },
@@ -49,6 +50,7 @@ export class BolsiyoTechChallengeApplication extends BootMixin(
     this.bind('logger').toClass(Logger);
     this.bind('auth.service').toClass(AuthService);
     this.bind('categories.service').toClass(CategoryService);
+    this.bind('products.service').toClass(ProductService);
     this.bind('datasource').toClass(MysqlDataSource);
   }
 }

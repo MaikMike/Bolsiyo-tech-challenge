@@ -12,6 +12,10 @@ export const authorizationMiddleware = async (
     authorize(context);
   }
 
+  if (context.request.url.startsWith('/products')) {
+    authorize(context);
+  }
+
   return;
 };
 
