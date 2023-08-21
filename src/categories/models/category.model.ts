@@ -1,6 +1,6 @@
 import { model, Entity, property } from '@loopback/repository';
 
-@model({name: 'categories'})
+@model({ name: 'categories' })
 export class Category extends Entity {
   @property({
     type: 'number',

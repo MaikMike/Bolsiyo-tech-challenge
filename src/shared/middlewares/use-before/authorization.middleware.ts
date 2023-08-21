@@ -5,14 +5,15 @@ import { RequestContext } from '@loopback/rest';
 import { HttpErrors } from '@loopback/rest';
 import { JwtService } from '../../../auth/services/jwt.service';
 
-export const authorizationMiddleware = async (context: RequestContext): Promise<void> => {
-
+export const authorizationMiddleware = async (
+  context: RequestContext,
+): Promise<void> => {
   if (context.request.url.startsWith('/categories')) {
     authorize(context);
   }
-  
+
   return;
-}
+};
 
 const authorize = async (context: RequestContext): Promise<void> => {
   const token = context.request.headers.authorization?.split(' ')[1];
@@ -21,11 +22,11 @@ const authorize = async (context: RequestContext): Promise<void> => {
     throw new HttpErrors.Unauthorized();
   }
 
-  const decoded = await JwtService.verify(token) as JwtPayload;
+  const decoded = (await JwtService.verify(token)) as JwtPayload;
 
   if (!decoded) {
     throw new HttpErrors.Unauthorized();
   }
 
   context.bind('companyId').to(decoded.companyId);
-}
+};

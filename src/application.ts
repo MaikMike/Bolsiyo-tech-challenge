@@ -48,7 +48,7 @@ export class BolsiyoTechChallengeApplication extends BootMixin(
   private binds() {
     this.bind('logger').toClass(Logger);
     this.bind('auth.service').toClass(AuthService);
-    this.bind('categories.service').toClass(CategoryService)
+    this.bind('categories.service').toClass(CategoryService);
     this.bind('datasource').toClass(MysqlDataSource);
   }
 }
