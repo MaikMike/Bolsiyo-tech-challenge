@@ -47,7 +47,6 @@ export class BolsiyoTechChallengeApplication extends BootMixin(
 
     this.dataSource(MysqlDataSource);
     this.binds();
-
   }
 
   private binds() {
@@ -55,5 +54,4 @@ export class BolsiyoTechChallengeApplication extends BootMixin(
     this.bind('auth.service').toClass(AuthService);
     this.bind('datasource').toClass(MysqlDataSource);
   }
-
 }

@@ -1,5 +1,12 @@
 import { inject, service } from '@loopback/core';
-import { Request, RestBindings, response, put, requestBody } from '@loopback/rest';
+import {
+  Request,
+  RestBindings,
+  response,
+  put,
+  requestBody,
+} from '@loopback/rest';
+import { LOGIN_REQUEST_BODY, LOGIN_RESPONSE } from './login.openapi';
 import { Credentials } from '../dtos/credentials.dto';
 
 import { AuthService } from '../services/auth.service';
@@ -11,27 +18,15 @@ export class AuthController {
   ) {}
 
   @put('/auth/login')
-  @response(200, {
-    description: 'Login',
-    content: {
-      'application/json': {
-        schema: {
-          type: 'object',
-          properties: {
-            token: {
-              type: 'string',
-            },
-          },
-        },
-      },
-    },
-  })
-  async login(@requestBody() credentials: Credentials): Promise<{}> {
+  @response(200, LOGIN_RESPONSE)
+  async login(
+    @requestBody(LOGIN_REQUEST_BODY) credentials: Credentials,
+  ): Promise<{}> {
     const token = await this.authService.login(credentials);
     return {
       data: {
         token,
-      }
+      },
     };
   }
 }

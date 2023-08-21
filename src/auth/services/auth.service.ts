@@ -25,15 +25,15 @@ export class AuthService {
       throw new UserFoundError();
     }
 
-    const passwordMatched = await bcrypt.compare(
-      password,
-      user.password
-    );
+    const passwordMatched = await bcrypt.compare(password, user.password);
 
     if (!passwordMatched) {
       throw new InvalidCredentialsError();
     }
 
-    return JwtService.generateToken({ email: user.email, companyId: user.companyId });
+    return JwtService.generateToken({
+      email: user.email,
+      companyId: user.companyId,
+    });
   }
 }
